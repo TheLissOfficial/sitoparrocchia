@@ -1,0 +1,415 @@
+/* ============================================================
+   STRUTTURA DI UNA REGOLA CSS
+   selettore { proprietà: valore; }
+   - selettore: A COSA si applica lo stile (body, .nome, nav a...)
+   - proprietà: COSA cambiare (color, margin...)
+   - valore: COME cambiarlo
+   Un punto davanti (.nome) = classe: vale per gli elementi con class="nome"
+   Un # davanti (#chiudi-popup) = id: vale per l'unico elemento con quell'id
+   ============================================================ */
+
+
+/* ---------- PAGINA INTERA ---------- */
+body {
+  margin: 0;                        /* nessun margine esterno */
+  padding: 0;                       /* nessuno spazio interno: il banner arriva al bordo */
+  font-family: Arial, sans-serif;   /* carattere del testo; se Arial manca, uno senza grazie */
+  background-color: #f4f6f9;        /* sfondo della pagina: grigio chiaro */
+  color: #ee942e;                   /* colore del testo di tutta la pagina: arancione */
+
+  /* Footer sempre in fondo: header, main e footer vengono messi in colonna
+     e il body è alto almeno quanto la finestra */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;               /* versione corretta per i telefoni (barra del browser) */
+}
+
+
+/* ---------- BANNER IN ALTO ---------- */
+header {
+  display: grid;                    /* dispone i figli (nome, logo, bottone) in una griglia */
+  grid-template-columns: 1fr auto 1fr;  /* 3 colonne: le due laterali si dividono lo spazio libero,
+                                       quella centrale è larga quanto il logo. Il logo resta al centro */
+  align-items: center;              /* centra gli elementi in verticale */
+  background-color: #ee942e;        /* sfondo arancione */
+  padding: 15px 30px;               /* spazio interno: 15px sopra/sotto, 30px ai lati */
+  color: #f4f6f9;                   /* colore del testo del banner */
+}
+
+/* Nome della parrocchia (colonna di sinistra). È un link verso la Home */
+.nome {
+  font-size: 1.2rem;                /* 1.2 volte la dimensione base */
+  font-weight: bold;                /* grassetto */
+  justify-self: start;              /* allinea a SINISTRA della colonna */
+  color: #f4f6f9;                   /* evita il blu dei link */
+  text-decoration: none;            /* toglie la sottolineatura */
+}
+
+/* Link che avvolge il logo (colonna centrale) */
+.logo-link {
+  justify-self: center;             /* centra il link nella colonna centrale */
+  display: block;                   /* il link occupa solo lo spazio dell'immagine */
+  line-height: 0;                   /* evita un piccolo spazio vuoto sotto l'immagine */
+}
+
+/* Immagine del logo */
+.logo-img {
+  width: 60px;                      /* larghezza fissa */
+  height: auto;                     /* altezza proporzionale: l'immagine non si deforma */
+  border-radius: 8px;               /* angoli arrotondati */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* ombra: 0 laterale, 4px in giù, 8px sfumatura, nero al 30% */
+}
+
+.cov-img-homepage {
+  width: 100%;
+  flex: none;                                /* non si allunga per riempire lo spazio */
+  aspect-ratio: 1700 / 770;                   /* larghezza / altezza reali della foto */
+  margin: 0;
+  padding: 0;
+  background-image: url("../immagini/chiesainfesta.jpg");
+  background-size: cover;                    /* con le proporzioni giuste non taglia nulla */
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Toglie i 40px di spazio tra l'immagine e il footer */
+.cov-img-homepage + #footer-placeholder footer {
+  margin-top: 0;
+}
+
+/* ---------- BOTTONE DEL MENU (☰) ---------- */
+.menu-btn {
+  justify-self: end;                /* allinea a DESTRA */
+  background: none;                 /* toglie lo sfondo grigio standard dei bottoni */
+  border: none;                     /* toglie il bordo standard */
+  color: #f4f6f9;                   /* colore del simbolo */
+  font-size: 2rem;                  /* simbolo grande */
+  line-height: 1;                   /* altezza di riga ridotta, per non allargare il banner */
+  cursor: pointer;                  /* il cursore diventa una manina */
+  padding: 5px 10px;                /* area cliccabile più comoda */
+  position: relative;               /* serve perché z-index funzioni */
+  z-index: 1001;                    /* più alto del pannello (1000): il bottone resta cliccabile sopra */
+}
+
+
+/* ---------- MENU LATERALE (pannello che scorre da destra) ---------- */
+nav {
+  position: fixed;                  /* fisso nella finestra: NON occupa spazio nel banner */
+  top: 0;                           /* attaccato in alto... */
+  right: 0;                         /* ...e a destra */
+  height: 100%;                     /* alto quanto la finestra */
+  width: 260px;                     /* larghezza del pannello */
+  box-sizing: border-box;           /* il padding è compreso nei 260px */
+  padding: 80px 30px 30px;          /* 80px sopra (sotto il bottone), 30px ai lati e sotto */
+  background-color: #ee942e;        /* sfondo arancione */
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);  /* ombra verso sinistra */
+  display: flex;                    /* link uno dopo l'altro... */
+  flex-direction: column;           /* ...in colonna */
+  gap: 20px;                        /* spazio tra un link e l'altro */
+  overflow-y: auto;                 /* se il menu è più lungo dello schermo, compare lo scorrimento */
+  transform: translateX(100%);      /* spostato a destra di tutta la sua larghezza: fuori schermo, nascosto */
+  transition: transform 0.3s ease;  /* lo spostamento dura 0,3 secondi */
+  z-index: 1000;                    /* sopra il resto della pagina */
+}
+
+/* Quando lo script aggiunge la classe "aperto", il pannello torna in posizione = visibile */
+nav.aperto {
+  transform: translateX(0);
+}
+
+/* Link dentro il menu */
+nav a {
+  color: #f4f6f9;
+  text-decoration: none;            /* rimuove la sottolineatura */
+  font-size: 1.2rem;
+  font-weight: 500;                 /* spessore medio */
+}
+
+/* :hover = quando il mouse passa sopra */
+nav a:hover {
+  color: #dcd4ca;
+}
+
+
+/* ---------- SOTTOMENU ---------- */
+/* Per i blocchi <details> nel menu */
+nav summary {
+  color: #f4f6f9;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;                 /* toglie il triangolino predefinito */
+}
+
+nav summary::-webkit-details-marker {
+  display: none;                    /* lo toglie anche su Safari */
+}
+
+nav summary::after {
+  content: " ▾";                    /* freccetta DOPO il testo della voce */
+}
+
+nav details[open] summary::after {
+  content: " ▴";                    /* quando è aperto, la freccia si capovolge */
+}
+
+nav summary:hover {
+  color: #dcd4ca;
+}
+
+.sottomenu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+  padding-left: 20px;               /* rientro per distinguerlo */
+}
+
+.sottomenu a {
+  font-size: 1rem;                  /* più piccolo delle voci principali */
+}
+
+
+/* ---------- CONTENUTO PRINCIPALE ---------- */
+main {
+  width: 100%;                      /* dentro un contenitore flex, senza questo si restringerebbe al contenuto */
+  box-sizing: border-box;           /* il padding resta dentro il 100% */
+  max-width: 800px;                 /* non supera mai 800px (leggibile su schermi grandi) */
+  margin: 40px auto;                /* 40px sopra e sotto, centrato */
+  padding: 0 1rem;                  /* spazio ai lati: il testo non tocca il bordo su telefono */
+}
+
+
+/* ---------- TITOLI ---------- */
+h1 {
+  color: #ee942e;                   /* arancione */
+  margin-top: 2rem;                 /* spazio sopra */
+  margin-bottom: 0.5rem;            /* poco spazio sotto */
+}
+
+h2 {
+  color: #272727;                   /* grigio molto scuro */
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  color: #272727;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  color: #272727;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+
+/* Paragrafi dentro il contenuto: grigio scuro, altrimenti ereditano l'arancione del body */
+main p {
+  color: #333333;
+  line-height: 1.5;
+}
+
+
+/* ---------- CLASSI DI UTILITÀ ---------- */
+.textcenter {
+  text-align: center;               /* centra il testo */
+}
+
+.interlinea1 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+
+/* ============================================================
+   STILE DELLA TABELLA
+   ============================================================ */
+
+/* Contenitore con scorrimento orizzontale per schermi piccoli (smartphone) */
+.tabella-scroll {
+  width: 100%;
+  overflow-x: auto;                 /* barra di scorrimento se la tabella non ci sta */
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  -webkit-overflow-scrolling: touch;  /* scorrimento fluido sui dispositivi touch */
+}
+
+/* Blocco tabella */
+table {
+  width: 100%;                      /* tutta la larghezza del contenitore */
+  border-collapse: collapse;        /* unisce i bordi tra le celle in una sola linea */
+  background-color: #ffffff;        /* sfondo bianco */
+  border-radius: 8px;               /* angoli arrotondati */
+  overflow: hidden;                 /* le celle restano dentro gli angoli arrotondati */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);  /* lieve ombra */
+}
+
+/* Celle di intestazione (titoli delle colonne) */
+th {
+  background-color: #ee942e;        /* arancione coordinato */
+  color: #ffffff;                   /* testo bianco */
+  font-weight: bold;
+  text-align: left;
+  padding: 14px 18px;               /* spazio interno verticale e orizzontale */
+  font-size: 1rem;
+}
+
+/* Celle con i dati */
+td {
+  padding: 14px 18px;
+  color: #333333;                   /* grigio scuro leggibile (non eredita l'arancione del body) */
+  border-bottom: 1px solid #eef1f5; /* linea di separazione tra le righe */
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Righe alternate (effetto zebra) */
+tr:nth-child(even) {
+  background-color: #f9fbfd;        /* azzurro/grigio chiarissimo sulle righe pari */
+}
+
+/* Riga sotto il mouse */
+tr:hover {
+  background-color: #fff8f0;        /* arancione chiarissimo */
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+/* Il segnaposto del footer prende tutto lo spazio libero sopra di sé:
+   così il footer scende in fondo alla finestra anche con la pagina vuota */
+#footer-placeholder {
+  margin-top: auto;
+}
+
+footer {
+  background-color: #ee942e;        /* come il banner */
+  color: #f4f6f9;
+  padding: 30px;
+  margin-top: 40px;                 /* stacca dal contenuto quando la pagina è lunga */
+}
+
+/* Riga con i tre blocchi (indirizzo, contatti, link) */
+.footer-contenuto {
+  display: flex;                    /* blocchi uno accanto all'altro */
+  flex-wrap: wrap;                  /* su telefono vanno a capo */
+  justify-content: space-around;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;                   /* centrata */
+}
+
+footer h3 {
+  color: #f4f6f9;
+  margin: 0 0 8px;                  /* azzera lo spazio sopra (gli h3 hanno 2rem) */
+  font-size: 1.1rem;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+footer a {
+  color: #f4f6f9;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(244, 246, 249, 0.4);  /* sottile linea sopra il copyright */
+  font-size: 0.9rem;
+}
+
+
+/* ============================================================
+   POPUP DELL'AVVISO (<dialog>)
+   ============================================================ */
+
+/* Finestra principale del popup */
+dialog#popup-automatico {
+  border: none;                             /* rimuove il bordo nero standard */
+  border-radius: 12px;                      /* angoli arrotondati */
+  border-top: 6px solid #ee942e;            /* bordo superiore arancione */
+  padding: 25px 30px;                       /* spazio interno */
+  max-width: 500px;                         /* larghezza massima su schermo grande */
+  width: 90%;                               /* su smartphone occupa il 90% */
+  background-color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);  /* ombra morbida */
+  margin: auto;                             /* centrato */
+}
+
+/* Titolo dentro il popup */
+dialog#popup-automatico h2 {
+  color: #ee942e;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+/* Testo del messaggio */
+dialog#popup-automatico p {
+  color: #333333;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* Link nel testo ("Clicca qui") */
+dialog#popup-automatico p a {
+  color: #ee942e;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+dialog#popup-automatico p a:hover {
+  color: #d87d19;                           /* arancione più scuro al passaggio */
+}
+
+/* Bottone di chiusura */
+#chiudi-popup {
+  background-color: #ee942e;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#chiudi-popup:hover {
+  background-color: #d87d19;
+}
+
+/* Schermata scura dietro al popup */
+dialog#popup-automatico::backdrop {
+  background-color: rgba(0, 0, 0, 0.55);    /* nero al 55% */
+  backdrop-filter: blur(3px);               /* sfoca il sito sottostante */
+}
+
+
+/* ============================================================
+   SMARTPHONE
+   @media = regole che valgono SOLO a certe condizioni.
+   Qui: finestra larga al massimo 700px
+   ============================================================ */
+@media (max-width: 700px) {
+  .nome {
+    font-size: 1rem;                        /* nome più piccolo per non toccare il logo */
+  }
+}
