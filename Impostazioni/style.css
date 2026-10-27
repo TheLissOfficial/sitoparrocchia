@@ -104,12 +104,10 @@ header {
 {
   vertical-align: middle;
   width: 100%;
-  background-image: url("../immagini/chiesasera.jpg");
   float: left;
   background-size: cover;   
   aspect-ratio: 683 / 1000;
   background-repeat: no-repeat;
-  vertical-align: middle;
 }
 
 /* ---------- BOTTONE DEL MENU (☰) ---------- */
