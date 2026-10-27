@@ -26,7 +26,7 @@ body {
 }
 
 .contenitoreCont {
-  display: flex;
+  display: block;
   width: 100%;
   margin: 20px auto;
   align-items: stretch;
