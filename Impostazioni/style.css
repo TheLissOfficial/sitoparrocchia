@@ -33,8 +33,13 @@ body {
 }
 
 .colonnaSinistraCont {
-    width: 60%;
+    width: 55%;
     padding: 0;
+}
+
+.colonnaMiddleCont{
+   width: 5%;
+   padding: 0;
 }
 
 .colonnaDestraCont{
