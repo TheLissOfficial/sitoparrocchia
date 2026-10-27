@@ -26,24 +26,22 @@ body {
 }
 
 .contenitoreCont {
-  display: flex;
+  display: flex;                    /* le colonne una accanto all'altra */
   width: 100%;
   margin: 20px auto;
-  align-items: stretch;
+  align-items: stretch;             /* tutte le colonne alte quanto la più alta (il testo a sinistra) */
 }
 
 .colonnaSinistraCont {
-  display: flex;                    /* serve per centrare l'immagine in verticale */
-  align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
-  width: 40%;
+  display: block;
+  width: 50%;                       /* testo */
   height: auto;
   padding: 0;
 }
 
-.colonnaMiddleCont{
-  display: flex;                    /* serve per centrare l'immagine in verticale */
-  align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
-  width: 40%;
+.colonnaMiddleCont {
+  display: block;
+  width: 10%;                       /* spazio vuoto tra testo e immagine */
   height: auto;
   padding: 0;
 }
@@ -51,7 +49,7 @@ body {
 .colonnaDestraCont {
   display: flex;                    /* serve per centrare l'immagine in verticale */
   align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
-  width: 40%;
+  width: 40%;                       /* immagine */
   height: auto;
   padding: 0;
 }
