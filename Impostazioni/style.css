@@ -46,11 +46,12 @@ body {
    display: block;
 }
 
-.colonnaDestraCont{
+.colonnaDestraCont {
+  display: flex;                    /* serve per centrare l'immagine in verticale */
+  align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
   width: 40%;
-   height: auto;
+  height: auto;
   padding: 0;
-   display: block;
 }
 
 
@@ -106,14 +107,10 @@ header {
   margin-top: 0;
 }
 
-.img-right-contacts
-{
-  vertical-align: middle;
-  width: 100%;
-  float: left;
-  background-size: cover;   
-  aspect-ratio: 683 / 1000;
-  background-repeat: no-repeat;
+.img-right-contacts {
+  display: block;
+  width: 100%;                      /* larga quanto la colonna */
+  height: auto;                     /* altezza proporzionale, senza deformarsi */
 }
 
 /* ---------- BOTTONE DEL MENU (☰) ---------- */
