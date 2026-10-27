@@ -33,17 +33,19 @@ body {
 }
 
 .colonnaSinistraCont {
-   display: block; 
-   width: 50%;
-   height: auto;
-   padding: 0;
+  display: flex;                    /* serve per centrare l'immagine in verticale */
+  align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
+  width: 40%;
+  height: auto;
+  padding: 0;
 }
 
 .colonnaMiddleCont{
-   width: 10%;
-   height: auto;
-   padding: 0;
-   display: block;
+  display: flex;                    /* serve per centrare l'immagine in verticale */
+  align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
+  width: 40%;
+  height: auto;
+  padding: 0;
 }
 
 .colonnaDestraCont {
