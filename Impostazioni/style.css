@@ -26,25 +26,31 @@ body {
 }
 
 .contenitoreCont {
-  display: block;
+  display: flex;
   width: 100%;
   margin: 20px auto;
   align-items: stretch;
 }
 
 .colonnaSinistraCont {
-    width: 50%;
-    padding: 0;
+   display: block; 
+   width: 50%;
+   height: auto;
+   padding: 0;
 }
 
 .colonnaMiddleCont{
    width: 10%;
+   height: auto;
    padding: 0;
+   display: block;
 }
 
 .colonnaDestraCont{
   width: 40%;
+   height: auto;
   padding: 0;
+   display: block;
 }
 
 
