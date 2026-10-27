@@ -47,13 +47,15 @@ body {
 }
 
 .colonnaDestraCont {
-  display: flex;                    /* serve per centrare l'immagine in verticale */
-  align-items: center;              /* l'immagine sta a METÀ dell'altezza del testo */
-  width: 40%;                       /* immagine */
+  display: flex;
+  flex-direction: column;           /* le immagini una SOTTO l'altra */
+  justify-content: center;          /* il gruppo sta a METÀ dell'altezza del testo */
+  align-items: center;
+  gap: 20px;                        /* spazio tra un'immagine e l'altra */
+  width: 40%;
   height: auto;
   padding: 0;
 }
-
 
 /* ---------- BANNER IN ALTO ---------- */
 header {
@@ -109,8 +111,9 @@ header {
 
 .img-right-contacts {
   display: block;
-  width: 100%;                      /* larga quanto la colonna */
-  height: auto;                     /* altezza proporzionale, senza deformarsi */
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;                   /* le immagini non vengono mai schiacciate in altezza */
 }
 
 /* ---------- BOTTONE DEL MENU (☰) ---------- */
